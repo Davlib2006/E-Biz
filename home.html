@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static '\home_static\styles\style.css' %}">
+    <!-- <link rel="stylesheet" href="{% static '\asset\css\bootstrap.css' %}"> -->
+</head>
+<body>
+    <div class="page_container">
+       <div class="header_container">
+        <div class="header">
+            <div class="top_header" style="padding: 5px;">
+                <div class="t-left">
+                    <div class="currency_option">
+                        <select name="currency" id="currency">
+                            <option value="">NGN</option>
+                            <option value="">USD</option>
+                            <option value="">EUD</option>
+                            <option value="">GHN</option>
+                            <option value="">AUD</option>
+                        </select>
+                    </div>
+
+                    <div class="language_option">
+                        <select name="language" class="language">
+                            <option value="">English</option>
+                            <option value="">English America</option>
+                            <option value="">Spanish</option>
+                            <option value="">English Australia</option>
+                            <option value="">Italy</option>
+                            <option value="">Chinese</option>
+                            <option value="">Hausa</option>
+                            <option value="">Igbo</option>
+                            <!-- <option value=""></option>
+                            <option value=""></option> -->
+                        </select>
+                    </div>
+                </div>
+                <div class="t-right">
+                    <a href="{% url 'myaccount' %}"><p>My Account</p></a>
+                    <a href=""><p>Gift Ideas</p></a>
+                    <a href=""><p>New Release</p></a>
+                    <a href=""><p>Todays Deal</p></a>
+                    <a href=""><p>Customer Services</p></a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}"><p>Logout</p></a>
+                    {% else %}
+                    <a href="{% url 'login' %}"><p>Login</p></a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="middle_header">
+                <div class="logo">
+                    <h1 id="title">E-<span style="color: #00b2ffdb;">Biz</span></h1>
+                </div>
+                <div class="search">
+                    <select name="search_select" id="" class="search_option">
+                        <option value="">Category</option>
+                        {% for category in Categories %}
+                        <option value="">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="search" name="search" id="search" placeholder="Search this blog">
+                    <button>→</button>
+                </div>
+                <div class="user_worth">
+                    <div class="cart">
+                        <img src="{% static '\home_static\fontawesome-free-6.7.2-web\svgs\solid\cart-shopping.svg' %}" alt="cart" width="25px" height="25px">
+                        <p>Cart</p>
+                    </div>
+                    <div class="balance">
+                        <p>Bal: $5000</p>
+                    </div>
+                </div>
+            </div>
+            <hr noshade="noshade" style="margin-top: 5px;">
+            <div class="bottom_header">
+                <ul class="category">
+                    <a href="{% url 'HOMEPAGE' %}">
+                        <li>Home</li>
+                    </a>
+                    {% for cat in Categories %}
+                    <a href="{% url 'category' cat.field %}">
+                        <li>{{ cat.field }}</li>
+                    </a>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+       </div>
+        <div class="body">
+            <div class="body_container">
+                <div class="body_left">
+                    <div class="lists">
+                        <div class="list_head">
+                            <img src="{% static '\home_static\cdns\list-solid.svg' %}" width="20px" height="20px">
+                            <h3>Categories</h3>
+                        </div>
+                        <ul>
+                            {% for cate in Categories %}
+                            <a href="{% url 'category' cate.field %}" class="links">
+                                <li>
+                                    <div class="li">
+                                        <img src="/media/{{ cate.svg }}" width="20px" height="20px">
+                                        <p>{{ cate.field }}</p>
+                                    </div>
+                                    <div>></div>
+                                </li>
+                            </a>
+                            {% endfor %}
+
+                            <!-- <a href="">
+                                <li>
+                                    <div class="li">
+                                        <img src="{% static '\home_static\fontawesome-free-6.7.2-web\svgs\solid\computer.svg' %}" width="20px" height="20px">
+                                        <p>Electronics</p>
+                                    </div>
+                                    <div>></div>
+                                </li>
+                            </a>
+                            <a href="">
+                                <li>
+                                    <div class="li">
+                                        <img src="{% static '\home_static\fontawesome-free-6.7.2-web\svgs\solid\heart.svg' %}" width="20px" height="20px">
+                                        <p>Health & Beauty</p>
+                                    </div>
+                                    <div>></div>
+                                </li>
+                            </a>
+                            <a href="">
+                                <li>
+                                    <div class="li">
+                                        <img src="{% static '\home_static\fontawesome-free-6.7.2-web\svgs\solid\stopwatch.svg' %}" width="20px" height="20px">
+                                        <p>Watches</p>
+                                    </div>
+                                    <div>></div>
+                                </li>
+                            </a>
+                            <a href="">
+                                <li>
+                                    <div class="li">
+                                        <img src="{% static '\home_static\cdns\plus-solid.svg' %}" width="20px" height="20px">
+                                        <p>Jewelries</p>
+                                    </div>
+                                    <div>></div>
+                                </li>
+                            </a>
+                            <a href="">
+                                <li>
+                                    <div class="li">
+                                        <img src="{% static '\home_static\fontawesome-free-6.7.2-web\svgs\solid\shoe-prints.svg' %}" width="20px" height="20px">
+                                        <p>Shoes</p>
+                                    </div>
+                                    <div>></div>
+                                </li>
+                            </a>
+                            <a href="">
+                                <li>
+                                    <div class="li">
+                                        <img src="{% static '\home_static\fontawesome-free-6.7.2-web\svgs\solid\baby.svg' %}" width="20px" height="20px">
+                                        <p>Kids and Babies</p>
+                                    </div>
+                                    <div>></div>
+                                </li>
+                            </a>
+                             <a href="">
+                                <li>
+                                    <div class="li">
+                                        <img src="{% static '\home_static\cdns\plus-solid.svg' %}" width="20px" height="20px">
+                                        <p>Pages</p>
+                                    </div>
+                                    <div>></div>
+                                </li>
+                            </a> -->
+                            <!-- <a href="">
+                                <li>
+                                    <div class="li">
+                                        <img src="{% static '\home_static\fontawesome-free-6.7.2-web\svgs\solid\futbol.svg' %}" width="20px" height="20px">
+                                        <p>Sports</p>
+                                    </div>
+                                    <div>></div>
+                                </li>
+                            </a>
+                            <a href="">
+                                <li style="border-bottom: none;">
+                                    <div class="li">
+                                        <img src="{% static '\home_static\fontawesome-free-6.7.2-web\svgs\solid\leaf.svg' %}" width="20px" height="20px">
+                                        <p>Home & Gardens</p>
+                                    </div>
+                                    <div>></div>
+                                </li>
+                            </a> --> 
+                        </ul>
+                    </div>
+
+                    <div class="deal">
+                        <div class="deal_head">
+                            <h4>Hot Deals</h4>
+                            <div class="deal_nav">
+                                <p><</p>
+                                <p>></p>
+                            </div>
+                        </div>
+                        <div class="deal_content">
+                            <div class="deal_img" style="padding: 10px;background: white;">
+                                <img src="{% static '\home_static\asset\images\client2.jpg' %}" width="50px" height="50px">
+                            </div>
+                        </div>
+                        <div class="deal_worth">
+                            <p class="name">Blobby Hair</p>
+                            <div class="deal_rating"></div>
+                            <p class="deal_price">$600.30</p>
+                            <div class="deal_cart">
+                                <button id="deal_cart_btn" style="display: flex;justify-content: center;align-items: center;gap: 5px;padding: 6px;">
+                                    <img src="{% static '\home_static\fontawesome-free-6.7.2-web\svgs\solid\cart-shopping.svg' %}" alt="cart" width="20px" height="20px">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="offer">
+                        <div class="offer_head">
+                            <h4>Special offers</h4>
+                            <div class="offer_nav">
+                                <p><</p>
+                                <p>></p>
+                            </div>
+                        </div>
+                        <div class="offer_content">
+                            <div class="offer_img" style="padding: 10px;background: white;">
+                                <img src="{% static '\home_static\asset\images\client1.jpg' %}" width="50px" height="50px">
+                            </div>
+                        </div>
+                        <div class="offer_worth">
+                            <p class="name">Kine Beauty and Health</p>
+                            <div class="offer_rating"></div>
+                            <p class="offer_price">$300.00</p>
+                            <div class="offer_cart">
+                                <button id="offer_cart_btn" style="display: flex;justify-content: center;align-items: center;gap: 5px;padding: 6px;">
+                                    <img src="{% static '\home_static\fontawesome-free-6.7.2-web\svgs\solid\cart-shopping.svg' %}" alt="cart" width="20px" height="20px">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="body_right">
+                    <div class="body_right_left">
+                        <div class="right_content">
+                            <div class="special_content">
+                                <div class="s-con">
+                                    <img src="{% static '\home_static\asset\images\client1.jpg' %}" alt="special offer" width="40%" height="300px" style="justify-self: right;">
+                                </div>
+                                <div class="con-bottom">
+                                    <div class="A">
+                                        <h5>MONEY BACK</h5>
+                                        <P>2Weeks Money Guarantee</P>
+                                    </div>
+                                    <div class="B">
+                                        <h5>FREE SHIPPING</h5>
+                                        <P>Shipping orders for free</P>
+                                    </div>
+                                    <div class="C">
+                                        <h5>SPECIAL SALE</h5>
+                                        <P>Great discount over 30%</P>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body_right_right">
+                        {{ product }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static '\home_static\scripts\index.js' %}"></script>
+</body>
+</html>
